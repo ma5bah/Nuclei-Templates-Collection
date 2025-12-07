@@ -9,7 +9,7 @@ repo_file = "README.txt"
 # Directory to clone into
 clone_dir = "community-templates"
 # Maximum number of concurrent threads
-MAX_WORKERS = 4
+MAX_WORKERS = 15
 
 # Ensure the clone directory exists
 os.makedirs(clone_dir, exist_ok=True)
