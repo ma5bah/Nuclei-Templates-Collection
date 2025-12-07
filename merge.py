@@ -15,12 +15,18 @@ def expand(path):
     return Path(path).expanduser().resolve()
 
 def get_file_hash(filepath):
-    """Calculate MD5 hash of file content to detect duplicates."""
-    hash_md5 = hashlib.md5()
+    """Calculate SHA-512 hash of filename + content to detect duplicates."""
+    hash_sha512 = hashlib.sha512()
+    
+    # Include filename and extension in hash
+    hash_sha512.update(filepath.name.encode('utf-8'))
+    
+    # Include file content in hash
     with open(filepath, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.update(chunk)
-    return hash_md5.hexdigest()
+            hash_sha512.update(chunk)
+    
+    return hash_sha512.hexdigest()
 
 def gather_files(source_dirs):
     """Collect all template files recursively."""
